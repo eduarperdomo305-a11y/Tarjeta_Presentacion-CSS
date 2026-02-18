@@ -1,0 +1,169 @@
+/* ===== Variables CSS: te permiten cambiar colores rápidamente desde un solo lugar ===== */
+:root {
+    --bg-dark: #F3F6FB;       /* Color superior del degradado de fondo (más oscuro dentro de lo claro) */
+    --bg-mid: #E9F0FA;        /* Color intermedio del degradado de fondo */
+    --bg-light: #DDE8F7;      /* Color inferior del degradado de fondo (más claro) */
+
+    --card-dark: #FFFFFF;     /* Color superior del degradado de las tarjetas (más claro) */
+    --card-light: #F2F6FB;    /* Color inferior del degradado de las tarjetas */
+    --card-hover: #E3EEF9;    /* Color para el degradado de las tarjetas cuando están en hover */
+
+    --text: #0F172A;          /* Color principal del texto (azul petróleo oscuro) */
+    --text-muted: #334155;    /* Color de texto secundario (más suave) */
+
+    --shadow-weak: rgba(15, 23, 42, .08);  /* Sombra suave usada por defecto */
+    --shadow-strong: rgba(15, 23, 42, .18);/* Sombra más intensa (por ejemplo en hover) */
+}
+
+/* ===== Reset básico para un box-model consistente ===== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;   /* Incluye padding y borde dentro del ancho/alto total */
+}
+
+html,
+body {
+    margin: 0;                /* Elimina márgenes por defecto del navegador */
+}
+
+/* ===== Fondo del sitio con degradado claro ===== */
+body {
+    min-height: 100vh;        /* Asegura que el body ocupe al menos el alto de la ventana */
+    background: linear-gradient(
+        180deg,               /* Dirección del degradado: de arriba hacia abajo */
+        var(--bg-dark) 0%,    /* Empieza con el color más “oscuro” de la paleta clara */
+        var(--bg-mid) 50%,    /* A mitad del recorrido usa el color intermedio */
+        var(--bg-light) 100%  /* Termina con el color más claro */
+    );
+    color: var(--text);       /* Color por defecto del texto en toda la página */
+    font-family: Arial, sans-serif; /* Tipografía base */
+}
+
+/* ===== Encabezado superior translúcido ===== */
+header {
+    text-align: center;       /* Centra el contenido dentro del header */
+    padding: 24px 16px;       /* Espaciado interno (vertical 24px, horizontal 16px) */
+    background: linear-gradient(
+        180deg,               /* Degradado vertical semitransparente sobre el header */
+        rgba(255, 255, 255, 0.65),
+        rgba(255, 255, 255, 0.35)
+    );
+    backdrop-filter: blur(4px);   /* Aplica un ligero desenfoque al fondo (si el navegador lo soporta) */
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08); /* Línea sutil inferior para separación */
+}
+
+/* ===== Título principal ===== */
+h1 {
+    margin: 12px 0 0;         /* Espacio superior 12px, sin margen lateral, sin margen inferior */
+    color: var(--text);       /* Color del título */
+    letter-spacing: .3px;     /* Espaciado entre letras para mejor lectura */
+}
+
+/* ===== Imagen de perfil con efecto hover ===== */
+img {
+    display: block;           /* Hace que respete márgenes verticales correctamente */
+    margin: 20px auto 10px;   /* Centra la imagen y da espacio arriba (20) y abajo (10) */
+    width: 200px;             /* Ancho fijo de la imagen */
+    height: 200px;            /* Alto fijo de la imagen */
+    border-radius: 50%;       /* La hace circular */
+    box-shadow: 0 8px 24px var(--shadow-weak); /* Sombra suave alrededor */
+    transition:               /* Transiciones suaves para los cambios en hover */
+        transform .3s ease,
+        box-shadow .3s ease,
+        filter .3s ease;
+    object-fit: cover;        /* Ajusta la imagen para cubrir el contenedor sin deformarse */
+}
+
+img:hover {
+    transform: translateY(-3px) scale(1.03);  /* Eleva y hace un ligero zoom al pasar el cursor */
+    box-shadow: 0 16px 36px var(--shadow-strong); /* Sombra más notoria en hover */
+    filter: saturate(1.04);   /* Aumenta levemente la saturación de colores */
+}
+
+/* ===== Tarjetas (section) en modo claro con degradado ===== */
+section {
+    width: 300px;             /* Ancho fijo de cada tarjeta (puedes subir a 340–380) */
+    margin: 16px auto;        /* Centra las tarjetas y separa verticalmente 16px */
+    padding: 14px 16px;       /* Espaciado interno de la tarjeta */
+    border-radius: 12px;      /* Esquinas redondeadas */
+
+    color: var(--text);       /* Color del texto dentro de la tarjeta */
+    background: linear-gradient(
+        180deg,               /* Degradado vertical dentro de la tarjeta */
+        var(--card-dark) 0%,
+        var(--card-light) 100%
+    );
+    border: 1px solid rgba(15, 23, 42, 0.08); /* Borde muy sutil para delimitar la tarjeta */
+    box-shadow: 0 2px 14px var(--shadow-weak); /* Sombra sutil para dar profundidad */
+
+    transform: translateY(0) scale(1); /* Estado inicial sin transformación */
+    transition:                   /* Transiciones suaves al interactuar */
+        transform .25s ease,
+        box-shadow .25s ease,
+        background-color .25s ease,
+        filter .25s ease;
+}
+
+/* ===== Efecto hover en tarjetas ===== */
+section:hover {
+    transform: translateY(-4px) scale(1.015); /* Sube y escala ligeramente al hacer hover */
+    background: linear-gradient(
+        180deg,               /* Cambia a un degradado un poco más “claro” */
+        var(--card-light) 0%,
+        var(--card-hover) 100%
+    );
+    box-shadow: 0 14px 28px var(--shadow-strong); /* Aumenta la sombra para sensación de elevación */
+    filter: saturate(1.03);   /* Da un toque más vivo al color */
+}
+
+/* ===== Textos secundarios dentro de las tarjetas ===== */
+section p,
+section li,
+section small {
+    color: var(--text-muted); /* Color más suave para párrafos, listas y textos pequeños */
+}
+
+/* ===== Pie de página claro con leve degradado ===== */
+footer {
+    text-align: center;       /* Centra el contenido del footer */
+    padding: 20px 16px;       /* Espaciado interno del footer */
+    background: linear-gradient(
+        180deg,               /* Degradado sutil en el footer */
+        rgba(255, 255, 255, 0.35),
+        rgba(255, 255, 255, 0.7)
+    );
+    border-top: 1px solid rgba(15, 23, 42, 0.08); /* Línea superior para separar del contenido */
+    color: var(--text-muted); /* Color de texto más suave en el footer */
+    margin-top: 24px;         /* Espacio por encima del footer */
+}
+
+/* ===== Layout opcional: 2 columnas centradas con inline-block ===== */
+.grid {
+    max-width: 1000px;        /* Limita el ancho total del contenedor de tarjetas */
+    margin: 28px auto;        /* Centra el contenedor y añade espacio vertical */
+    text-align: center;       /* Centra horizontalmente los hijos inline-block */
+    padding: 0 12px;          /* Pequeño padding lateral para respirar en pantallas pequeñas */
+}
+
+.grid section {
+    display: inline-block;    /* Permite que las tarjetas se ubiquen una al lado de otra */
+    vertical-align: top;      /* Alinea las tarjetas por la parte superior */
+    width: calc(50% - 24px);  /* Dos tarjetas por fila restando el “gap” (márgenes) */
+    margin: 12px;             /* Espacio alrededor de cada tarjeta (hace de “gap”) */
+}
+
+/* ===== Comportamiento responsive: 1 columna en móviles ===== */
+@media (max-width: 700px) {
+    .grid section {
+        width: calc(100% - 24px); /* En pantallas pequeñas, cada tarjeta ocupa el ancho completo menos el margen */
+    }
+}
+
+/* ===== Accesibilidad: respeta usuarios que prefieren menos movimiento ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important; /* Elimina transiciones si el usuario lo solicita */
+        animation: none !important;  /* Elimina animaciones si el usuario lo solicita */
+    }
+}
